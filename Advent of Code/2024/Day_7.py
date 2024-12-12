@@ -1,3 +1,5 @@
+from itertools import product
+
 '''
 190: 10 19
 3267: 81 40 27
@@ -14,17 +16,36 @@ Each line represents a single equation. The test value appears before the colon 
 Operators are always evaluated left-to-right, not according to precedence rules. Furthermore, numbers in the equations cannot be rearranged. Glancing into the jungle, you can see elephants holding two different types of operators: add (+) and multiply (*).
 '''
 
-
 def main(tests):
 	total = 0
+	totals = set()
 	for line in tests.readlines():
-		test = line.replace(":", "").strip().split(" ")
+		test_strings = line.replace(":", "").strip().split(" ")
+		test = [int(item) for item in test_strings]
 		test_result = test.pop(0)
 		
-		print(test_result, test)
-	
-	
+		def check(combo):
+			equation = test[0]
+			for i in range(1, len(test)):
+				if combo[i-1] == "+":
+					equation += test[i]
+				elif combo[i-1] == "|":
+					equation = int(f"{equation}{test[i]}")
+				else:
+					equation *= test[i]
+			
+			return equation
+		
+		for combination in product("+*|", repeat=len(test) -1):
+			calculated = check(combination)
+			if calculated == test_result:
+				print(test_result, calculated, ' -- works')
+				totals.add(calculated)
+				total = sum(totals)
+				
 	return total
+
+
 
 if __name__ == "__main__":
 	
