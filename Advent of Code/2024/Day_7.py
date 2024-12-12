@@ -1,3 +1,4 @@
+import os
 from itertools import product
 
 '''
@@ -49,7 +50,9 @@ def main(tests):
 
 if __name__ == "__main__":
 	
-	calibrations = open('Day_7_input.txt')
+	cwd = os.path.dirname(os.path.abspath(__file__))
+	filename = os.path.join(cwd, 'Day_7_input.txt')
+	calibrations = open(filename)
 	total_results = main(calibrations)
 	
 	print(total_results)
