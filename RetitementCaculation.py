@@ -1,8 +1,8 @@
 import math
 
-amt_saved = 90000.00
+amt_saved = 63000.00
 yearly_investment = 6000.00
-percent_growth = 0.12
+percent_growth = 0.13
 monthly_interest = 0.06
 formatted = '{total:,}'
 
